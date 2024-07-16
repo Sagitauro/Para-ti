@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Especial</title>
+    <style>
+        /* Importación de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap');
+
+        /* Estilos generales del cuerpo */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Fondo negro */
+            background-image: linear-gradient(to bottom, #000 0%, #001f3f 100%); /* Gradiente de negro a azul medianoche */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animación de emojis flotantes */
+        .emoji {
+            position: absolute;
+            font-size: 24px;
+            color: #fff;
+            animation: float 10s infinite;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos del sobre */
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background-color: red; /* Fondo rojo */
+            position: relative;
+            cursor: pointer;
+            transition: height 0.5s, clip-path 0.5s; /* Agregando transición para clip-path */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            z-index: 10;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Sobre cerrado (rectángulo completo) */
+            background-image: url('https://www.transparenttextures.com/patterns/grey-skeleton.png'); /* Patrón de esqueletos de hoja */
+            background-size: cover;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: 'IM Fell English', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Dirección de columna para alinear contenido */
+        }
+        .envelope.opened {
+            height: 400px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); /* Clip-path abierto (rectángulo completo) */
+        }
+
+        /* Estilos de la carta */
+        .letter {
+            width: 280px;
+            height: 380px;
+            background-color: white;
+            color: #000; /* Color de texto negro */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            transition: transform 0.5s;
+            font-family: 'IM Fell English', serif;
+            font-size: 20px;
+            margin: 0 20px; /* Margen horizontal cuando está abierta */
+            transform: translateY(-100%); /* Inicialmente oculta la carta */
+        }
+        .envelope.opened .letter {
+            transform: translateY(0); /* Muestra la carta cuando está abierta */
+        }
+
+        /* Estilos de texto regular */
+        .regular {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos del pie de página */
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            align-self: flex-end;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos del mensaje cerrado */
+        .closed-message {
+            margin-bottom: 10px; /* Margen inferior para separar del borde */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 24px; /* Tamaño de fuente aumentado */
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: 10px; /* Alinear en la parte inferior */
+            left: 0; /* Alinear a la izquierda */
+            color: #fff; /* Color de texto blanco */
+            transition: opacity 0.5s; /* Transición de opacidad */
+            opacity: 1; /* Hacer visible por defecto */
+            z-index: 1; /* Asegurar que esté detrás de la carta */
+        }
+        .envelope.opened .closed-message {
+            opacity: 0; /* Ocultar cuando está abierto */
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+    <div class="envelope" id="envelope">
+        <div class="closed-message">
+            <p style="margin-top: 10px;">Tu eterno guardián<br>desde las sombras</p>
+        </div>
+        <div class="letter" id="letter">
+            <p style="font-family: 'IM Fell English', serif; font-size: 24px;">Evy ✨</p>
+            <p style="font-family: 'IM Fell English', serif; font-size: 20px;">Vengo a recordarte que eres una niña de ojitos bonitos muy increíble y especial.<br>Ten un lindo día.<br>Te quiero mucho.</p>
+            <div class="footer">BY QUEEN 👑</div>
+        </div>
+    </div>
+
+    <script>
+        // Función para crear emojis flotantes
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.innerHTML = '✨';
+            emoji.style.top = Math.random() * 100 + 'vh';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            document.getElementById('background').appendChild(emoji);
+        }
+
+        // Crear emojis iniciales
+        for (let i = 0; i < 50; i++) {
+            createEmoji();
+        }
+
+        // Abrir y cerrar carta al hacer clic en el sobre
+        document.getElementById('envelope').addEventListener('click', function() {
+            this.classList.toggle('opened');
+        });
+    </script>
+</body>
+</html>
